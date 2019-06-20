@@ -1,0 +1,35 @@
+language: cpp
+compiler: clang
+
+os:
+  - linux
+  - osx
+
+dist: xenial
+
+cache:
+  - directories:
+    - "$HOME/v8"
+
+env:
+  - V8_DIR=$HOME/v8 V8_VERSION=7.4.301
+
+addons:
+  apt:
+    packages:
+      - libc++-dev
+      - clang
+      - libclang-dev
+
+script: "./build.sh"
+
+deploy:
+  provider: releases
+  api_key:
+    secure: pDAI2na7/j0SlbvoBK4zw47KxqKzdxZFsCBz/0DCAGWf5pmJQ7FRjWDNGF7NEpszyuAA+M/D2qIL0hwXqkXAC6atiuDMf363KU2MRRk+M/gdc0iViT/ck9oBQUQHLNAJBrOySiY6gAI7YyhERVhrd5B5pGMz11oGYi0D+DH/ApnjnF5YKuC2avTV1V5BoWqJFzNDzq3h9uHfbG4CmJ4o+HdVz7yJudYZRIzqx3PhSRROqoo1W2VEoAtBl/1oWVXtNPGEk7Ez9iuk7Ua7HQxmquaY4ZtOVRc2gOFahuZAv5y7whK0O6F46yxDuNFZShET8YYnVvJeM6My9UM147d5yrG5GjUW5aRQkitpZoB+/ByzO/riIKH5lfuo/RQlVTDDeDhmC0KoD5cxBh/g4tdoXqEEeKlTjRLFUR1GhD7x4RSFIjlJw9XBc7zzaAnd5yhc3WrY4zLmU6XfOTaD8iM+TZ4S5Jv35fA/a11lsW5NO6xRF1svIfNUGT0dSONqHeXtMyKu7J9Gp8bf7BgS2XVmoZuifT3a6Ol4M8HocwAS9CJgtD+etomk8rrRfsvbCdgLaYIKZxwymq9F74asm4pcePM/UTwGpZmxN0O+HHHCrYLf7NAd127Gn9PIZ19ieO0P+tyjz7/slWtMdoGDMfNojaob7teonviKrKIjNGnbB18=
+  file_glob: true
+  file: prebuilt-v8-*
+  skip_cleanup: true
+  on:
+    tags: true
+
